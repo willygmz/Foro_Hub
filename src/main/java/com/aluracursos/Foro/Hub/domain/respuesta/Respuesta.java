@@ -3,15 +3,25 @@ package com.aluracursos.Foro.Hub.domain.respuesta;
 
 import com.aluracursos.Foro.Hub.domain.usuario.Usuario;
 import com.aluracursos.Foro.Hub.domain.topico.Topico;
+import com.aluracursos.Foro.Hub.domain.usuario.UsuarioDetalleDTO;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+import lombok.AllArgsConstructor;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.CreationTimestamp;
 
 import java.time.LocalDateTime;
 
-@Entity
+@AllArgsConstructor
+@NoArgsConstructor
 @Getter
 @Setter
+@EqualsAndHashCode(of = "id")   
+@Entity
+@Table(name = "respuestas")
 public class Respuesta {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -20,25 +30,27 @@ public class Respuesta {
     @Column(nullable = false)
     private String mensaje;
 
-    @Column(nullable = false)
-    private LocalDateTime fechaCreacion;
+    @Column(name = "fecha_creacion")
+    @CreationTimestamp
+    private LocalDateTime fechaCreacion = LocalDateTime.now();
 
     @ManyToOne
-    @JoinColumn(name = "author_id", nullable = false)
+    @JoinColumn(name = "usuario_id", nullable = false)
     private Usuario autor;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "topico_id", nullable = false)
     private Topico topico;
+    
+    @Column(columnDefinition = "varchar(2) default 'no'")
+    private String solucion = "no";
 
-    // Constructors
-    public Respuesta() {
-        this.fechaCreacion = LocalDateTime.now();
+    public Respuesta(@NotBlank String mensaje, Usuario usuario, Topico topico) {
+        this.id = null;
+        this.mensaje = mensaje;
+        this.topico = topico;
+        this.autor = usuario;
+
     }
 
-    public Respuesta(String message, Usuario author) {
-        this.mensaje = message;
-        this.autor = author;
-        this.fechaCreacion = LocalDateTime.now();
-    }
 }

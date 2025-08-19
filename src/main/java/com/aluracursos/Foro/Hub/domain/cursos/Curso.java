@@ -1,39 +1,38 @@
 package com.aluracursos.Foro.Hub.domain.cursos;
 import jakarta.persistence.Embeddable;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Getter
-@Setter // me genera todos los geter y seters ala hora de la ejecucion del la aplicacion
-@NoArgsConstructor//genera un constructor vacio
-@AllArgsConstructor // genera un construcctor con todos los atributos de la entidad
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 
-@Embeddable// para indicar que esa entidad sera embebida en la Tabla medicos
+@Embeddable
 public class Curso {
 
     private String curso;
-    private String categoriaCurso;
+
+    @Enumerated(EnumType.STRING)
+    private Categoria categoriaCurso;
 
     public Curso(DatosCurso datos) {
         this.curso = datos.curso();
-        this.categoriaCurso = datos.categoriaCurso();
+        this.categoriaCurso =  datos.categoriaCurso();
     }
 
-    public String getCurso() {
-        return curso;
-    }
 
-    public void setNombreCurso(String nombreCurso) {
-        this.curso = nombreCurso;
-    }
-
-    public String getCategoriaCurso() {
-        return categoriaCurso;
-    }
-
-    public void setCategoriaCurso(String categoriaCurso) {
-        this.categoriaCurso = categoriaCurso;
+    public void actualizarCurso(@NotNull Curso curso) {
+        if (curso.getCurso() != null) {
+            this.curso = curso.getCurso();
+        }
+        if (curso.getCategoriaCurso() != null) {
+            this.categoriaCurso = curso.getCategoriaCurso();
+        }
     }
 }

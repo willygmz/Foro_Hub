@@ -1,9 +1,13 @@
 package com.aluracursos.Foro.Hub.domain.usuario;
 
 import jakarta.persistence.*;
+import jakarta.validation.Valid;
 import lombok.*;
 import java.util.Collection;
 import java.util.List;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
 @Entity
 @AllArgsConstructor
@@ -12,7 +16,7 @@ import java.util.List;
 @Setter
 @EqualsAndHashCode(of = "id")
 @Table(name = "usuarios")
-public class Usuario {
+public class Usuario implements UserDetails    {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -21,21 +25,72 @@ public class Usuario {
     private String email;
     private String login;
     private String password;
+    private String perfil;
+    private boolean activo;
 
-
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return List.of(new SimpleGrantedAuthority("ROLE_USER"));
+    }
     public Usuario(UsuarioRegistroDTO datos) {
-
+        this.id = null;
         this.nombre = datos.nombre();
+        this.password = datos.password();
+        this.id = datos.autorId();
         this.email = datos.email();
-        this.telefono = datos.telefono();
-        this.documento_identidad = datos.documento_identidad();
-        this.direccion = new Direccion(datos.direccion());
+    }
+    public void actualizarUsuario(@Valid UsuarioActualizarDTO datos) {
+        if(datos.nombre()!= null){
+            this.nombre = datos.nombre();
+        }
+        if(datos.password()!= null){
+            this.password = datos.password();
+        }
+        if(datos.perfil()!= null){
+            this.perfil = datos.perfil();
+        }
+
+
+
     }
 
-    // Security config
-//    @Override
-//    public Collection<? extends GrantedAuthority> getAuthorities() {
-//        return List.of(new SimpleGrantedAuthority("ROLE_USER"));
-//    }
+    public void   eliminar() {
+        this.activo = false;
+    }
+
+    @Override
+    public String getPassword() {
+        return password;
+    }
+
+    @Override
+    public String getUsername() {
+        return login;
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return activo;
+    }
+    
+    public boolean getActivo() {
+        return activo;
+    }
+
 
 }
