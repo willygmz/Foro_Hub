@@ -1,4 +1,7 @@
 # Foro Hub - API REST
+   <p align="left">
+   <img src="https://img.shields.io/badge/STATUS-EN%20DESAROLLO-green">
+   </p>
 
 Foro Hub es una aplicación de foro desarrollada con Spring Boot que permite a los usuarios crear, leer, actualizar y eliminar tópicos de discusión, así como interactuar con respuestas.
 
