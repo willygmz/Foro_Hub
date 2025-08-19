@@ -42,9 +42,10 @@ La documentación interactiva de la API está disponible a través de Swagger UI
 
 | Método | Endpoint | Descripción | Autenticación Requerida |
 |--------|----------|-------------|-------------------------|
-| GET    | /topicos | Lista todos los tópicos | No |
+| GET    | /topicos | Lista todos los tópicos | Si |
 | POST   | /topicos | Crea un nuevo tópico | Sí |
-| GET    | /topicos/{id} | Obtiene un tópico por su ID | No |
+| GET    | /topicos/{id} | Obtiene un tópico por su ID | Si |
+| GET    | /topicos/{id} | Obtiene un tópico por su curso | Si |
 | PUT    | /topicos/{id} | Actualiza un tópico existente | Sí (solo propietario o admin) |
 | DELETE | /topicos/{id} | Elimina un tópico (marcado como inactivo) | Sí (solo propietario o admin) |
 
@@ -53,7 +54,7 @@ La documentación interactiva de la API está disponible a través de Swagger UI
 | Método | Endpoint | Descripción | Autenticación Requerida |
 |--------|----------|-------------|-------------------------|
 | GET    | /usuarios | Lista todos los usuarios | Sí (solo admin) |
-| POST   | /usuarios | Registra un nuevo usuario | No |
+| POST   | /usuarios | Registra un nuevo usuario | Si |
 | GET    | /usuarios/{id} | Obtiene un usuario por su ID | Sí (solo propio usuario o admin) |
 | PUT    | /usuarios/{id} | Actualiza un usuario existente | Sí (solo propio usuario o admin) |
 | DELETE | /usuarios/{id} | Desactiva un usuario | Sí (solo admin) |
@@ -63,9 +64,7 @@ La documentación interactiva de la API está disponible a través de Swagger UI
 | Método | Endpoint | Descripción | Autenticación Requerida |
 |--------|----------|-------------|-------------------------|
 | POST   | /respuestas | Crea una nueva respuesta | Sí |
-| GET    | /respuestas/topico/{id} | Obtiene respuestas por ID de tópico | No |
-| PUT    | /respuestas/{id} | Actualiza una respuesta | Sí (solo propietario) |
-| DELETE | /respuestas/{id} | Elimina una respuesta | Sí (solo propietario o admin) |
+| GET    | /respuestas/topico/{id} | Obtiene respuestas por ID de tópico | Si |
 
 ## 🚀 Cómo Ejecutar el Proyecto
 
@@ -213,8 +212,6 @@ springdoc.api-docs.path=/v3/api-docs
 ![img_5.png](img_5.png)
 
 <br>
-
-![img_7.png](img_7.png)
 
 ![img_3.png](img_3.png)
 
