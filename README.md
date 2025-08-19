@@ -231,4 +231,5 @@ springdoc.api-docs.path=/v3/api-docs
 
 ## 📄 Licencia
 
-Este proyecto está bajo la Licencia MIT. Ver el archivo `LICENSE` para más detalles.
+Este proyecto está bajo la Licencia MIT - consulta el archivo LICENSE para más detalles.
+👤 Autor Desarrollado por William Jose Gallo Marquez 🎓 Proyecto educativo - API Rest Java Spring Boot y JWT Security
